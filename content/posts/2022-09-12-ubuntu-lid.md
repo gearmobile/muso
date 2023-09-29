@@ -21,7 +21,7 @@ categories = [
 
 После некоторого изыскания и помощи на стороне reddit - решение было найдено. Оригинал помощи находится здесь - [How to Change Lid Close Behavior in Ubuntu 20.04](https://ubuntuhandbook.org/index.php/2020/05/lid-close-behavior-ubuntu-20-04/)
 
-### Шаги исправления просты
+### Шаги исправления просты <!--more-->
 
 В терминале нужно открыть для редактирования файл `logind.conf`:
 
