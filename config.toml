@@ -1,20 +1,20 @@
 baseurl = "http://www.example.com"
-title = "johndoe"
+title = "Moe Green"
 theme = "hugo-coder"
 languagecode = "en"
 defaultcontentlanguage = "en"
 
 paginate = 20
 
-disqusShortname = "yourdiscussshortname"
+#disqusShortname = "yourdiscussshortname"
 
 [markup.highlight]
 style = "github-dark"
 
 [params]
-  author = "John Doe"
-  info = "Full Stack DevOps and Magician"
-  description = "John Doe's personal website"
+  author = "Moe Green"
+  info = "Frontend Developer"
+  description = "Moe Green's personal blog"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.jpg"
   #gravatar = "john.doe@example.com"
