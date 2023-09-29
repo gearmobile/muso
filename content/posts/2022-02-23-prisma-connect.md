@@ -1,36 +1,43 @@
----
-title: "Prisma - подключить в Nest-проекте"
-layout: post
-categories: Prisma
-tags: [prisma, postgres, nest]
-share: true
----
++++
+authors = ["Muso Verda"]
+title = "Prisma - подключить в Nest-проекте"
+date = "2022-02-23"
+description = "Prisma - как подключить в Nest-проекте"
+tags = [
+    "prisma",
+    "postgres",
+    "nest",
+]
+categories = [
+    "development"
+]
++++
 
 ## Prisma - установка в Nest-проекте
 
 Установка [Prisma][1] выполняется очень просто - при помощи двух команд. Первая - устанавливает клиентскую часть Prisma:
 
-{% highlight bash %}
+{{< highlight bash >}}
 $ npm i @prisma/client
-{% endhighlight %}
+{{< /highlight >}}
 
 ... вторая команда - устанавливает cli-часть Prisma:
 
-{% highlight bash %}
+{{< highlight bash >}}
 $ npm i -D prisma
-{% endhighlight %}
+{{< /highlight >}}
 
 После этого - нужно запустить команду для инициализации Prisma в текущем проекте:
 
-{% highlight bash %}
+{{< highlight bash >}}
 $ npx prisma init
-{% endhighlight %}
+{{< /highlight >}}
 
 В результате в корне проекта будет создана папка **prisma**, внутри которой будет находиться файл **schema.prisma** для настройки подключения Prisma к базе данных (и не только это).
 
 Содержимое файла очень простое:
 
-{% highlight typescript %}
+{{< highlight typescript >}}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -42,7 +49,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-{% endhighlight %}
+{{< /highlight >}}
 
 Наиболее существенные здесь две вещи - это драйвер **postgresql** для подключения к базе данных Postgres (по умолчанию используется подключение именно к Postgres). Если база данных другая - MySQL и тп - то меняем на нужный драйвер.
 
@@ -50,7 +57,7 @@ datasource db {
 
 Если посмотреть на содержимое файла **.env**, то он будет таким:
 
-{% highlight typescript %}
+{{< highlight typescript >}}
 # Environment variables declared in this file are automatically made available to Prisma.
 # See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
 
@@ -58,26 +65,26 @@ datasource db {
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
 DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
-{% endhighlight %}
+{{< /highlight >}}
 
 То есть - в одной строке - выполняется полная настройка подключения к существующей базе данных. В моем учебном случае это выглядит таким образом:
 
-{% highlight typescript %}
+{{< highlight typescript >}}
 DATABASE_URL="postgresql://postgres:123@localhost:5432/udemy_medium_clone?schema=public"
-{% endhighlight %}
+{{< /highlight >}}
 
 То есть - **postgres** - имя пользователя базы данных; **123** - пароль пользователя базы данных; **udemy_medium_clone** - имя базы данных.
 
 Откуда я взял\узнал эти данные? Просто я заранее создал учебную базу данных в Postgres, у себя локально (в моем случае):
 
-{% highlight bash %}
+{{< highlight bash >}}
 postgres=# CREATE DATABASE udemy_medium_clone;
 CREATE DATABASE
 postgres=# \c udemy_medium_clone 
 You are now connected to database "udemy_medium_clone" as user "postgres".
 udemy_medium_clone=# \conninfo
 You are connected to database "udemy_medium_clone" as user "postgres" via socket in "/var/run/postgresql" at port "5432".
-{% endhighlight %}
+{{< /highlight >}}
 
 **localhost:5432** - я оставил по умолчанию, так как - у меня Postgres также по умолчанию слушает этот порт.
 
@@ -89,15 +96,15 @@ You are connected to database "udemy_medium_clone" as user "postgres" via socket
 
 Первый - создать таблицу в базе данных силами самого SQL и затем выполнить преобразование таблицы в модель данных (Prisma schema) в проекте - командой:
 
-{% highlight bash %}
+{{< highlight bash >}}
 prisma db pull
-{% endhighlight %}
+{{< /highlight >}}
 
 Второй - наоборот, создать модель данных Prisma в проекте и затем мигрировать ее в Postgres, что автоматически приведет к созданию такой таблицы в базе данных.
 
 Давайте поступим по второму варианту. Создадим в файле **schema.prisma** модель данных пользователя будущего приложения:
 
-{% highlight typescript %}
+{{< highlight typescript >}}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -120,19 +127,19 @@ model Users {
 
   @@map("users")
 }
-{% endhighlight %}
+{{< /highlight >}}
 
 (кстати - под [VSC][3] и [WS][4] - есть специальные плагины для подсветки синтаксиса и форматирования файлов с расширением *.prisma; для VSC плагин работает отлично, для WS - так себе).
 
 И все - можно выполнить миграцию в базу данных командой:
 
-{% highlight bash %}
+{{< highlight bash >}}
 npx prisma migrate dev --name users
-{% endhighlight %}
+{{< /highlight >}}
 
 ... где **--name users** - это имя конкретной миграции, чтобы можно было локально увидеть и отследить эту операцию. По выполнении Prisma выведет в консоль отчет об успешной операции:
 
-{% highlight bash %}
+{{< highlight bash >}}
 Environment variables loaded from .env
 Prisma schema loaded from prisma/schema.prisma
 Datasource "db": PostgreSQL database "udemy_medium_clone", schema "public" at "localhost:5432"
@@ -148,13 +155,13 @@ migrations/
 Your database is now in sync with your schema.
 
 ✔ Generated Prisma Client (3.10.0 | library) to ./node_modules/@prisma/client in 75ms
-{% endhighlight %}
+{{< /highlight >}}
 
 Как видно из отчета, Prisma создала подпапку **migrations**, внутри которой будут находиться - папки с детальной информацией по каждой конкретной миграции.
 
 В моем случае - это будет папка **20220223160632_users** (помним о ключе --name users) и внутри этой папки - любопытный файлик **migration.sql**. Если открыть этот файлик, то увидим не что иное, как набор обычных sql-команд по созданию таблицы базы данных:
 
-{% highlight sql %}
+{{< highlight sql >}}
 -- CreateTable
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
@@ -175,13 +182,13 @@ CREATE UNIQUE INDEX "users_password_key" ON "users"("password");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
-{% endhighlight %}
+{{< /highlight >}}
 
 То есть, по факту - сперва была выполнена операция по преобразованию Prisma-модели в такой sql-запрос, а уже потом - этот запрос выполнился и была создана таблица в базе данных.
 
 А давайте проверим, так ли это на самом деле? Легко!
 
-{% highlight bash %}
+{{< highlight bash >}}
 udemy_medium_clone=# \d
                  List of relations
  Schema |        Name        |   Type   |  Owner   
@@ -190,11 +197,11 @@ udemy_medium_clone=# \d
  public | users              | table    | postgres
  public | users_id_seq       | sequence | postgres
 (3 rows)
-{% endhighlight %}
+{{< /highlight >}}
 
 ... правда - таблица users была создана. А давайте посмотрим - что из себя представляет эта таблица users:
 
-{% highlight bash %}
+{{< highlight bash >}}
 udemy_medium_clone=# \d users
                                      Table "public.users"
   Column  |          Type          | Collation | Nullable |              Default              
@@ -210,7 +217,7 @@ Indexes:
     "users_email_key" UNIQUE, btree (email)
     "users_password_key" UNIQUE, btree (password)
     "users_username_key" UNIQUE, btree (username)
-{% endhighlight %}
+{{< /highlight >}}
 
 ... хм, очень похоже на правду - это именно такая таблица, какую я спроектировал в качестве модели в Prisma.
 
