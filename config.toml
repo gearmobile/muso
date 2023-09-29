@@ -2,7 +2,7 @@ baseurl = "http://www.example.com"
 title = "Don't panic"
 theme = "hugo-coder"
 languagecode = "en"
-defaultcontentlanguage = "ru"
+defaultcontentlanguage = "en"
 
 paginate = 20
 
@@ -59,10 +59,10 @@ style = "github-dark"
 
 # Menu links
 [[menu.main]]
-  name = "Заметки"
+  name = "Posts"
   weight = 1
   url  = "posts/"
 [[menu.main]]
-  name = "Об авторе"
+  name = "About"
   weight = 2
   url = "about/"
