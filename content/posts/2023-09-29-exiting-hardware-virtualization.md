@@ -2,23 +2,25 @@
 authors = ["Moe Green"]
 title = "Ubuntu KVM"
 date = "2023-09-29"
-description = "Ubuntu ошибка с kvm при выключении"
+description = "Ubuntu - ошибка с kvm при выключении"
 tags = [
     "ubuntu",
     "kvm",
-    "shutdown"
+    "shutdown",
+    "grub"
 ]
 categories = [
     "linux"
 ]
-series = ["Theme Demo"]
 +++
 
-Ubuntu 22.04 - после установки столкнулся с проблемой при выключении системы с ошибкой `kvm: exiting hardware virtualization`.
+Ubuntu 22.04.3 - после установки столкнулся с проблемой при выключении системы с ошибкой `kvm: exiting hardware virtualization`.
 
 ## Kvm: exiting hardware virtualization <!--more-->
 
-Итак, система Ubuntu 22.04.3 LTS свежеустановленная, все обновления установлены. Но при выключении системы в логах возникает ошибка `kvm: exiting hardware virtualization`. Перепробовал разные советы и решения по этой теме в Сети, но эффективным оказалось следующее.
+Итак, система Ubuntu 22.04.3 LTS свежеустановленная, все обновления установлены. Но при выключении системы в логах возникает ошибка `kvm: exiting hardware virtualization`. Система зависает и выключить ее можно лишь при помощи hard shutdown.
+
+Перепробовал разные советы и решения по этой теме в Сети, но эффективным оказалось следующее.
 
 1. Открываем терминал
 
@@ -37,9 +39,9 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi=force"
 {{< /highlight >}}
 ... то есть, по факту - добавляем для ключа `acpi` значение `force`.
 
-4. Сохраняем изменения в конфиг файле.
+4. Сохраняем изменения в конфигурационном файле GRUB.
 
-5. В терминале делаем пересборку загрузчика командой:
+5. В терминале делаем обновления загрузчика GRUB командой:
 {{< highlight bash >}}
 sudo update-grub
 {{< /highlight >}}
