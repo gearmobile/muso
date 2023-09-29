@@ -1,8 +1,8 @@
 baseurl = "http://www.example.com"
-title = "Moe Green"
+title = "Don't panic"
 theme = "hugo-coder"
 languagecode = "en"
-defaultcontentlanguage = "en"
+defaultcontentlanguage = "ru"
 
 paginate = 20
 
@@ -12,9 +12,9 @@ paginate = 20
 style = "github-dark"
 
 [params]
-  author = "Moe Green"
+  author = "Muso Verda"
   info = "Frontend Developer"
-  description = "Moe Green's personal blog"
+  description = "Muso Verda's personal blog"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.jpg"
   #gravatar = "john.doe@example.com"
@@ -59,10 +59,10 @@ style = "github-dark"
 
 # Menu links
 [[menu.main]]
-  name = "Blog"
+  name = "Заметки"
   weight = 1
   url  = "posts/"
 [[menu.main]]
-  name = "About"
+  name = "Об авторе"
   weight = 2
   url = "about/"

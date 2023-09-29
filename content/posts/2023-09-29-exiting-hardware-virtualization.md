@@ -1,6 +1,6 @@
 +++
-authors = ["Moe Green"]
-title = "Ubuntu KVM"
+authors = ["Muso Verda"]
+title = "Ubuntu 22.04 - ошибка с KVM virtualization"
 date = "2023-09-29"
 description = "Ubuntu - ошибка с kvm при выключении"
 tags = [
