@@ -37,7 +37,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi"
 {{< highlight text >}}
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi=force"
 {{< /highlight >}}
-... то есть, по факту - добавляем для ключа `acpi` значение `force`.
+... то есть, по факту - добавляем для ключа `acpi` значение - `force`.
 
 4. Сохраняем изменения в конфигурационном файле GRUB.
 
