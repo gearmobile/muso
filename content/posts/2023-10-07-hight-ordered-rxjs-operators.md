@@ -12,5 +12,4 @@ categories = [
 ]
 +++
 
-
 // Higher-Order RxJs Mapping Operators: switchMap, mergeMap, concatMap
